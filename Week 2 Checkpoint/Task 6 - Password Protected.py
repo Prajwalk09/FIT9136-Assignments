@@ -1,6 +1,10 @@
 print("CHECK FILENAMES")
-valid_departments = ['dep1', 'dep2', 'dep3']
-files_with_password = ['fileb', 'filed']
+# valid_departments = ['dep1', 'dep2', 'dep3']
+valid_departments_and_files = {'dep1':['filea','fileb'],
+                               'dep2':['filec','filed'],
+                               'dep3':['filea','filec']
+                            }
+files_with_password = {'fileb':'pass1', 'filed':'pass2'}
 # Use a while loop to get user input until the user enters "quit"
 while True:
     # Take input for department name
@@ -14,7 +18,7 @@ while True:
         break
 
     # Checking if department name is valid
-    if department_name not in valid_departments:
+    if department_name not in valid_departments_and_files.keys():
         continue
 
     else:
@@ -29,20 +33,21 @@ while True:
         if file_name in files_with_password:
             for i in range(3):
                 print(f"{3-i} password attempts remain.")
-                password = input("Input password: ")
+                password = input("Input password: ").strip()
 
-                # Checking if the entered password is correct for the corresponding file
-                if (file_name == 'fileb' and password == 'pass1') or (file_name == 'filed' and password == 'pass2'):
+                if password == "":
+                    continue
+
+                if file_name in files_with_password and password == files_with_password.get(file_name):
                     print(f"{file_name} - is a valid filename for - {department_name}")
                     break
 
-        # This else block checks whether entered file names are valid or not for all files WITHOUT a password
+        # This else if block checks whether entered file names are valid or not for all files WITHOUT a password
+        elif department_name in valid_departments_and_files.keys() and \
+                file_name in valid_departments_and_files.get(department_name):
+            print(f"{file_name} - is a valid filename for - {department_name}")
+
         else:
-            if ((department_name == 'dep1' and file_name == 'filea')
-                            or (department_name == 'dep2' and file_name in ['filec'])
-                            or (department_name == 'dep3' and file_name in ['filea', 'filec'])):
-                print(f"{file_name} - is a valid filename for - {department_name}")
-            else:
-                print(f"{file_name} - *is not* a valid filename for - {department_name}")
+            print(f"{file_name} - *is not* a valid filename for - {department_name}")
 
 print("GOODBYE")

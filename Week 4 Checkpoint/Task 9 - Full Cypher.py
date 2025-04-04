@@ -1,6 +1,12 @@
-# Declare constants
+def caesar_cypher(encrypted_text: str, shift: int) -> str:
+    """This is a function which implements the caesar cypher decryption technique
+    Parameters:
+    encrypted_text: The encrypted text which will be passed to the function. We will have to decrypt this text
+    shift: An integer shift value indicating the value of the caesar shift to be used
 
-def caesar_cypher(encrypted_text, shift):
+    Returns:
+    decrypted_text: A variable of type string having the decrypted text for the corresponding encrypted text"""
+
     decrypted_string = ""
     if shift < 0 or shift > 25:
         print("Invalid caesar shift.")
@@ -25,7 +31,16 @@ def caesar_cypher(encrypted_text, shift):
     return decrypted_string
 
 
-def vigenere_cipher(encrypted_text, key):
+def vigenere_cipher(encrypted_text: str, key: str) -> str:
+    """This is a function which implements the vigenere cipher decryption technique
+    Parameters:
+    encrypted_text: The encrypted text which will be passed to the function. We will have to decrypt this text
+    key: An key of type string indicating the value of the vigenere shift to be used
+
+    Returns:
+    decrypted_text: A variable of type string having the decrypted text for the corresponding encrypted text
+    """
+
     decrypted_string = ""
     index = 0
     # Checking in input encrypted string is empty
@@ -48,8 +63,7 @@ def vigenere_cipher(encrypted_text, key):
                 else:
                     """Formula used here is Decrypted Text = (Encrypted Text - Vigenere key + 26) % 26.
 
-                    The chr() function is used to get the character from the ASCII value and 65 is added since
-                    ASCII of capital letters begins at 65.
+                    The chr() function is used to get the character from the ASCII value.
 
                     The ord() function is used to get the ASCII value of a particular character."""
 
@@ -62,8 +76,19 @@ def vigenere_cipher(encrypted_text, key):
     return decrypted_string
 
 
-def decrypt_cypher(encrypted_text, key):
-    # If the given key is numeric, use the caesar_cipher technique
+def decrypt_cypher(encrypted_text: str, key: [int, str]) -> str:
+    """This is a function which is used for decryption. Inside this function, depending on the data type of the key
+    passed, this function calls the caesar_cypher or vigenere_cipher functions respectively.
+
+    Parameters:
+    encrypted_text: The encrypted text which will be passed to the function. We will have to decrypt this text
+    key: The key value to be used for decryption. It can be a value of type either string or integer
+
+    Returns:
+    decrypted_text: A variable of type string having the decrypted text for the corresponding encrypted text
+    """
+
+    # If the given key is numeric, use the caesar_cypher technique
     if key.isnumeric():
         return caesar_cypher(encrypted_text, int(key))
 
@@ -76,8 +101,6 @@ def decrypt_cypher(encrypted_text, key):
 if __name__ == "__main__":
     # Display preamble
     print("DECRYPT STRING")
-
-    # Get encrypted text
     encrypted_string = input("Input encrypted string: ")
 
     # Check for empty encrypted string
@@ -85,7 +108,6 @@ if __name__ == "__main__":
         print("Empty encrypted string.")
         exit(0)
 
-    # Get decryption key
     decryption_key = input("Input key: ")
 
     # Invoking the decrypt_cypher function on the encrypted_string and given decryption_key

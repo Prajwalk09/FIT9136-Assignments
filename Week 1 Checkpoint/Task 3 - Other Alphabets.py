@@ -14,4 +14,3 @@ left_decrypted_entry = (decrypted_entry - 2) % alphabet_size
 right_decrypted_entry = (decrypted_entry + 2) % alphabet_size
 
 print(f"\nThe decrypted entries in ALPHABET TABLE are: {left_decrypted_entry} {decrypted_entry} {right_decrypted_entry}")
-

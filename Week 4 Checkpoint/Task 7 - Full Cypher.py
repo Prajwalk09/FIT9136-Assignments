@@ -10,14 +10,15 @@ if encrypted_string.strip() == "":
     exit(0)
 
 else:
-    caesar_shift = int(input("Input caesar shift: "))
+    caesar_shift = input("Input caesar shift: ")
 
     # Checking for invalid caesar shift and exit the program, if true
-    if caesar_shift < 0 or caesar_shift > 25:
+    if not caesar_shift.isnumeric() or int(caesar_shift) < 0 or int(caesar_shift) > 25:
         print("Invalid caesar shift.")
         exit(0)
 
     else:
+        caesar_shift = int(caesar_shift)
         for character in encrypted_string:
 
             # Skip spaces. No decoding
@@ -37,6 +38,3 @@ else:
     print("The decrypted string is:")
     for character in decrypted_string:
         print(character)
-
-
-

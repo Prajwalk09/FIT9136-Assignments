@@ -24,10 +24,9 @@ else:
                 continue
             else:
                 """Formula used here is Decrypted Text = (Encrypted Text - Vigenere key + 26) % 26.
-                
-                The chr() function is used to get the character from the ASCII value and 65 is added since
-                ASCII of capital letters begins at 65.
-                
+
+                The chr() function is used to get the character from the ASCII value.
+
                 The ord() function is used to get the ASCII value of a particular character."""
 
                 decrypted_string += chr((ord(encrypted_string[i]) - ord(vigenere_key[index]) + 26) % 26 + 65)
