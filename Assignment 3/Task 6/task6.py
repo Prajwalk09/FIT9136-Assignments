@@ -1,7 +1,17 @@
 # Part 1
 def read_pgn(file_name: str) -> list[dict]:
-    all_games = []
+    """
+    This function is used to read the contents of the PGN file, whose name is given to this function as an input.
 
+    Parameters:
+        file_name(str): A string value denoting the name of the PGN file to be read
+
+    Returns:
+        This function returns a list of dictionaries.
+    """
+    all_games = []
+        
+    # Identyify required tags
     game_tags = {
         'Event': 'event',
         'White': 'white',
@@ -12,6 +22,7 @@ def read_pgn(file_name: str) -> list[dict]:
         'Opening': 'opening'
     }
 
+    # opening the file and reading it
     with open(file_name, 'r') as input_file:
         lines = [line.strip('\n') for line in input_file]
 
@@ -19,10 +30,12 @@ def read_pgn(file_name: str) -> list[dict]:
         total_lines = len(lines)
 
         while i < total_lines:
+            # Skip empty lines
             if lines[i].strip() == '':
                 i += 1
                 continue
 
+            # get header tags
             headers = {}
             while i < total_lines and lines[i].strip() != '':
                 line = lines[i].strip()
@@ -99,6 +112,12 @@ def read_pgn(file_name: str) -> list[dict]:
 
 # Part 2
 def win_loss_by_opening(games: list[dict]) -> dict:
+    """
+    This function takes a list of dictionaries and returns a dictionary
+    where keys are opening names and values are tuples which indicate (white_win_count, black_win_count)
+    :param games: A list of dictionaries containing game information
+    :return: a list of tuples for white wins and black wins
+    """
     opening_statistics = {}
 
     for game in games:
@@ -120,6 +139,15 @@ def win_loss_by_opening(games: list[dict]) -> dict:
 
 # Part 3
 def win_loss_by_elo(games: list[dict], lower: int, upper: int) -> tuple[int, int]:
+    """
+    This function returns a tuple for all games where
+    lower < |whiteelo - blackelo| < upper. Only games having not draws are counted.
+
+    :param games: a list of dictionaries containing all the games
+    :param lower: lower bound
+    :param upper: upper bound
+    :return:a tuple of integers of (lower_elo_wins, higher_elo_wins)
+    """
     lower_elo_wins, higher_elo_wins = 0, 0
 
     for game in games:
@@ -159,6 +187,13 @@ def win_loss_by_elo(games: list[dict], lower: int, upper: int) -> tuple[int, int
 
 # Part 4
 def win_loss_by_moves(games: list[dict], moves: list[str]) -> tuple[int, int]:
+    """
+    Among all the games in games, count how many were won by White vs Black when the game's opening sequence
+    begins exactly with moves
+    :param games: A dictionary which is returned by read_pgn
+    :param moves: a list of moves
+    :return: returns a tuple indicating the count of white wins and black wins
+    """
     white_win_count = 0
     black_win_count = 0
 

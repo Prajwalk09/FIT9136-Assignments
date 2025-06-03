@@ -3,6 +3,15 @@ import binh_chess
 
 
 def read_pgn(file_name: str) -> list[dict]:
+    """
+    This function is used to read the contents of the PGN file, whose name is given to this function as an input.
+
+    Parameters:
+        file_name(str): A string value denoting the name of the PGN file to be read
+
+    Returns:
+        This function returns a list of dictionaries.
+    """
     all_games = []
 
     game_tags = {
@@ -102,9 +111,17 @@ def read_pgn(file_name: str) -> list[dict]:
 
 # Part 1
 def count_positions(moves: list[str], depth: int) -> int:
+    """
+    This function returns the total number of legal positions which are reachable at exactly
+    depth from the position defined by moves.
+    :param moves: a list of legal moves from the starting position
+    :param depth: number of additional half moves to explore
+    :return: an integer value which represents all legal continuations
+    """
     def recursive_function(current_moves, d):
 
         if d == 0:
+            # Base case, if d == 0 return 1
             return 1
         else:
             total = 0
@@ -122,6 +139,17 @@ def count_positions(moves: list[str], depth: int) -> int:
 
 # Part 2
 def winning_statistics(file_name: str, depth: int, tolerance: int) -> tuple[int, list[str]]:
+    """
+    Out of all the games in the PGN file, finds a sequence of depth half moves from the starting position
+    that:
+        1. Appears in the least tolerance games
+        2. Maximises white's win probability
+
+    :param file_name: String value denoting the name of the file
+    :param depth: an integer value denoting depth
+    :param tolerance:an integer value denoting tolerance
+    :return: a tuple containing best_win_probability, best_sequence and total_games for best sequence
+    """
     game_dictionary = read_pgn(file_name)
 
     games = []
